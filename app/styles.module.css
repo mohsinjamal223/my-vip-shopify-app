@@ -1,0 +1,14 @@
+/* This targets the div wrapper */
+.custom-vip-button {
+  display: inline-block; /* Helps with sizing */
+}
+
+/* This targets the actual button INSIDE the div */
+.custom-vip-button button {
+  background: linear-gradient(45deg, #FFD700, #FFA500) !important;
+  color: black !important;
+  border-radius: 50px !important;
+  font-weight: bold !important;
+  border: none !important;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+}

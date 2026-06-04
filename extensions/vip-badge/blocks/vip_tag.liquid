@@ -1,0 +1,36 @@
+{% comment %}
+  Check the metafield we just set in the Admin
+{% endcomment %}
+
+{% assign is_vip = product.metafields.custom.vip_status.value %}
+
+{% if is_vip == true %}
+  <div class="vip-badge">
+    <span class="icon">⭐</span>
+    <span class="text">VIP EXCLUSIVE</span>
+  </div>
+{% endif %}
+
+<style>
+  .vip-badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(45deg, #000, #434343);
+    color: gold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid gold;
+    margin: 10px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .vip-badge .icon { margin-right: 8px; }
+</style>
+
+{% schema %}
+{
+  "name": "VIP Badge",
+  "target": "section",
+  "settings": []
+}
+{% endschema %}
