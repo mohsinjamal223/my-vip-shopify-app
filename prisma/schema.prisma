@@ -39,3 +39,11 @@ model VipProduct {
   title     String
   createdAt DateTime @default(now())
 }
+
+model TaggedProduct {
+  id        Int      @id @default(autoincrement())
+  productId String   @unique // Shopify product GID
+  title     String
+  tags      String   @default("") // Comma-separated tags applied to this product
+  updatedAt DateTime @default(now()) @updatedAt
+}
