@@ -7,7 +7,7 @@ name = "my-new-app"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,write_metaobjects,write_metaobject_definitions"
+scopes = "write_products,write_metaobjects,write_metaobject_definitions,read_customers,write_customers"
 
 [webhooks]
 api_version = "2026-04"
@@ -30,4 +30,4 @@ redirect_urls = [ "https://example.com/api/auth" ]
 [build]
 automatically_update_urls_on_dev = true
 
-scopes = "write_products,write_metaobjects"
+scopes = "write_products,write_metaobjects,read_customers,write_customers"

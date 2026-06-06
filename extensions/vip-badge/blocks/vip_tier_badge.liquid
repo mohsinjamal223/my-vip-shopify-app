@@ -1,0 +1,119 @@
+{% comment %}
+  VIP Tier badge.
+
+  Reads the logged-in customer's `custom.vip_tier` metafield, which points at a
+  `vip_tier` metaobject managed from the app's "Assign VIP Tiers" page. Renders
+  the tier's icon, name and (optionally) its benefits.
+{% endcomment %}
+
+{%- assign tier = customer.metafields.custom.vip_tier.value -%}
+
+{%- if customer and tier -%}
+  <div
+    class="vip-tier-badge"
+    style="--vip-color: {{ tier.badge_color | default: '#5C6AC4' }};"
+  >
+    <span class="vip-tier-badge__pill">
+      <span class="vip-tier-badge__icon" aria-hidden="true">
+        {{- tier.badge_icon | default: '⭐' -}}
+      </span>
+      <span class="vip-tier-badge__name">
+        {{- block.settings.label_prefix }} {{ tier.name -}}
+      </span>
+    </span>
+
+    {%- if block.settings.show_discount and tier.discount_percentage != blank -%}
+      <span class="vip-tier-badge__perk">
+        {{ tier.discount_percentage }}% member discount
+      </span>
+    {%- endif -%}
+
+    {%- if block.settings.show_benefits and tier.benefits != blank -%}
+      <ul class="vip-tier-badge__benefits">
+        {%- assign benefits = tier.benefits | newline_to_br | split: '<br />' -%}
+        {%- for benefit in benefits -%}
+          {%- assign trimmed = benefit | strip -%}
+          {%- if trimmed != blank -%}
+            <li>{{ trimmed }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+<style>
+  .vip-tier-badge {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: {{ block.settings.margin }}px 0;
+  }
+  .vip-tier-badge__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--vip-color);
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  }
+  .vip-tier-badge__icon {
+    font-size: 16px;
+  }
+  .vip-tier-badge__perk {
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--vip-color);
+    filter: brightness(0.7);
+  }
+  .vip-tier-badge__benefits {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: #4a4a4a;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "VIP Tier Badge",
+  "target": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label_prefix",
+      "label": "Label prefix",
+      "default": "VIP"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_discount",
+      "label": "Show member discount",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show benefits list",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "margin",
+      "label": "Vertical spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    }
+  ]
+}
+{% endschema %}

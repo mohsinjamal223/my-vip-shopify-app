@@ -25,6 +25,8 @@ export default function App() {
           Home
         </Link>
         <Link to="/app/bulk-tags">Bulk tags</Link>
+        <Link to="/app/vip-tiers">VIP tiers</Link>
+        <Link to="/app/vip-customers">Assign tiers</Link>
         <Link to="/app/additional">Additional page</Link>
         <Link to="/app/settings">Settings</Link>
       </NavMenu>
